@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atif Ali — SDET II · Senior QA Engineer</title>
+  <meta name="description" content="Portfolio of Atif Ali — SDET II, Senior QA Engineer & Business Analyst specializing in fintech, automation frameworks, and product quality." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      --bg:       #080e1a;
+      --bg2:      #0d1626;
+      --bg3:      #111e32;
+      --border:   rgba(0,210,200,0.12);
+      --cyan:     #00d2c8;
+      --cyan-dim: rgba(0,210,200,0.18);
+      --cyan-glow:rgba(0,210,200,0.06);
+      --text:     #e8edf5;
+      --muted:    #7a8faa;
+      --display:  'Space Grotesk', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
+    }
+
+    /* ── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--display);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; }
+
+    /* ── Noise texture overlay ──────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    section { padding: 96px 0; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+
+    /* ── Nav ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8,14,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); text-decoration: none; }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 8px 18px;
+      border: 1px solid var(--cyan);
+      border-radius: 4px;
+      color: var(--cyan) !important;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--cyan-dim) !important; text-decoration: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,210,200,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,210,200,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,210,200,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--cyan);
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 32px;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero-name {
+      font-size: clamp(44px, 9vw, 88px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero-name span { color: var(--cyan); }
+    .hero-typing-wrapper {
+      font-family: var(--mono);
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--muted);
+      margin-bottom: 28px;
+      min-height: 36px;
+    }
+    #typing-text { color: var(--text); }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--cyan);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-bio {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--cyan);
+      color: var(--bg) !important;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 6px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); text-decoration: none !important; }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      color: var(--text) !important;
+      font-size: 14px;
+      border-radius: 6px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--cyan); background: var(--cyan-glow); text-decoration: none !important; }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ── About ──────────────────────────────────────────── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 16px; line-height: 1.8; }
+    .about-text p strong { color: var(--text); }
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .highlight-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+    .highlight-card:hover { border-color: var(--cyan); }
+    .highlight-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .highlight-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .highlight-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── What I Do ──────────────────────────────────────── */
+    #services { }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .service-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+    .service-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── Tech Stack ─────────────────────────────────────── */
+    #stack { background: var(--bg2); }
+    .stack-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .stack-category h3 {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .stack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 14px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── Experience ─────────────────────────────────────── */
+    #experience { }
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 56px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -36px; top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--cyan-dim);
+    }
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .timeline-company {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .timeline-period {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .timeline-role {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-family: var(--mono);
+    }
+    .timeline-projects {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .timeline-project {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .timeline-project h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+    .timeline-project ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .timeline-project ul li {
+      font-size: 13px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .timeline-project ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 10px;
+      top: 3px;
+    }
+
+    /* ── Projects ───────────────────────────────────────── */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .project-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+    .project-domain {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+    .project-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .project-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 20px; }
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .project-tech span {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 3px 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+    }
+    .project-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted) !important;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .project-link:hover { border-color: var(--cyan); color: var(--cyan) !important; text-decoration: none !important; }
+    .project-link.unavailable { opacity: 0.4; cursor: default; pointer-events: none; }
+
+    /* ── Focus ──────────────────────────────────────────── */
+    #focus { }
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .focus-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+    .focus-item:hover { border-color: var(--cyan); }
+    .focus-icon { font-size: 24px; flex-shrink: 0; }
+    .focus-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .focus-item p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* ── Contact ────────────────────────────────────────── */
+    #contact { background: var(--bg2); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-copy h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px; }
+    .contact-copy p { color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text) !important;
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover { border-color: var(--cyan); background: var(--cyan-glow); text-decoration: none !important; }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      background: var(--cyan-dim);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-link-info { display: flex; flex-direction: column; }
+    .contact-link-label { font-family: var(--mono); font-size: 10px; color: var(--cyan); letter-spacing: 0.1em; margin-bottom: 2px; }
+    .contact-link-value { font-size: 14px; color: var(--text); }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    footer span { color: var(--cyan); }
+
+    /* ── Scroll reveal ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Mobile ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(8,14,26,0.98); padding: 24px; gap: 20px; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { gap: 28px; }
+      .timeline { padding-left: 20px; }
+      .timeline-item::before { left: -24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="container">
+    <div class="nav-logo">atif.ali</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">What I Do</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="mailto:sydatifali@gmail.com" class="nav-cta nav-links__cta">Hire Me</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">Available for freelance &amp; contract</div>
+      <h1 class="hero-name">Atif <span>Ali</span></h1>
+      <div class="hero-typing-wrapper">
+        <span id="typing-text"></span><span class="cursor"></span>
+      </div>
+      <p class="hero-bio">
+        Senior QA Engineer and SDET II with 4+ years breaking things professionally across fintech, loan processing, and SaaS platforms. I build automation frameworks from scratch, lead QA across concurrent products, and double as a Business Analyst when specs need writing at CEO level.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">View My Work ↓</a>
+        <a href="mailto:sydatifali@gmail.com" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">4+</div>
+          <div class="stat-label">YEARS EXPERIENCE</div>
+        </div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">PRODUCTS SHIPPED</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">PLATFORMS TESTED</div>
+        </div>
+        <div>
+          <div class="stat-num">∞</div>
+          <div class="stat-label">BUGS FOUND</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p class="section-label">// about me</p>
+        <h2 class="section-title">Quality isn't a phase.<br>It's the architecture.</h2>
+        <p>I started in <strong>manual testing</strong> and built up into scalable automation engineering — Selenium, Appium, BrowserStack — across web, mWeb, Android, and iOS. Along the way I got pulled into business analysis, ended up leading QA across multiple concurrent products, and built a full-stack CRM solo when the project needed it.</p>
+        <p>Today I work at <strong>NovoStack</strong> as an SDET II, embedded in fintech and entertainment park products, writing specs that get CEO sign-off and test suites that catch regressions before they reach users.</p>
+        <p>I use <strong>AI tools and Generative AI</strong> to work smarter — not to replace the thinking.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">🔬</div>
+          <div>
+            <h4>Testing at Every Layer</h4>
+            <p>Functional, regression, security (OWASP), performance (JMeter), API, integration, UAT — I cover the full spectrum.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">⚙️</div>
+          <div>
+            <h4>Automation from Scratch</h4>
+            <p>Built Selenium + Appium POM frameworks integrated with Jenkins and GitHub Actions CI/CD pipelines.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📋</div>
+          <div>
+            <h4>Business Analyst</h4>
+            <p>Authored comprehensive product specs for fintech flows — signed off at CEO and CTO level.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🚀</div>
+          <div>
+            <h4>Full-Stack When Needed</h4>
+            <p>Built the ZTech CRM solo using Node.js, Express.js, and PostgreSQL — designed, developed, and deployed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── What I Do ── -->
+<section id="services">
+  <div class="container">
+    <p class="section-label reveal">// what i do</p>
+    <h2 class="section-title reveal">How I add value<br>to your team</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <h3>Automation Framework Engineering</h3>
+        <p>Build Selenium and Appium test suites from zero using POM design, integrated with Jenkins and GitHub Actions for continuous regression coverage across web, mWeb, Android, and iOS.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <h3>Mobile &amp; Web QA</h3>
+        <p>End-to-end functional, exploratory, and regression testing across Android and iOS using Appium and BrowserStack — with detailed defect lifecycle management and testware delivery.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <h3>API &amp; Backend Testing</h3>
+        <p>Thorough API validation with Postman and Newman; backend data verification with SQL and PostgreSQL; performance testing with JMeter.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <h3>Business Analysis &amp; Spec Writing</h3>
+        <p>Requirement gathering, product spec authoring, and stakeholder communication — translating business needs into actionable test and development strategies.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">05</div>
+        <h3>Security &amp; Performance Testing</h3>
+        <p>OWASP ZAP security assessments and JMeter performance profiling to surface vulnerabilities and bottlenecks before production.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">06</div>
+        <h3>AI-Augmented QA Workflows</h3>
+        <p>Leveraging Claude and GitHub Copilot to accelerate test script generation, documentation, and exploratory coverage — more signal, less noise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tech Stack ── -->
+<section id="stack">
+  <div class="container">
+    <p class="section-label reveal">// tech stack</p>
+    <h2 class="section-title reveal">Tools of<br>the trade</h2>
+    <div class="stack-categories reveal">
+      <div class="stack-category">
+        <h3>Automation &amp; Frameworks</h3>
+        <div class="stack-tags">
+          <span class="tag">Selenium</span>
+          <span class="tag">Appium</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">TestNG</span>
+          <span class="tag">Maven</span>
+          <span class="tag">JMeter</span>
+          <span class="tag">ExtentReports</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <h3>CI/CD &amp; DevOps</h3>
+        <div class="stack-tags">
+          <span class="tag">Jenkins</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">BrowserStack</span>
+          <span class="tag">LambdaTest</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <h3>API &amp; Backend</h3>
+        <div class="stack-tags">
+          <span class="tag">Postman</span>
+          <span class="tag">Newman</span>
+          <span class="tag">SQL</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <h3>Languages</h3>
+        <div class="stack-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="stack-tags">
+          <span class="tag">Jira</span>
+          <span class="tag">ClickUp</span>
+          <span class="tag">Figma</span>
+          <span class="tag">OWASP ZAP</span>
+          <span class="tag">IntelliJ IDEA</span>
+          <span class="tag">VS Code</span>
+          <span class="tag">Linux</span>
+        </div>
+      </div>
+      <div class="stack-category">
+        <h3>AI &amp; Modern Workflows</h3>
+        <div class="stack-tags">
+          <span class="tag">Claude</span>
+          <span class="tag">GitHub Copilot</span>
+          <span class="tag">AI-Assisted Test Design</span>
+          <span class="tag">Prompt Engineering</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">// experience</p>
+    <h2 class="section-title reveal">Where I've<br>been deployed</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">
+          <span class="timeline-company">NovoStack</span>
+          <span class="timeline-period">Oct 2025 – Present</span>
+        </div>
+        <div class="timeline-role">SDET II · Senior QA Analyst</div>
+        <div class="timeline-projects">
+          <div class="timeline-project">
+            <h4>Ruloans — Fintech CRM &amp; B2B/B2C Apps</h4>
+            <ul>
+              <li>Executed functional and regression testing across CRM, B2B, and B2C apps on web, Android, and iOS using Appium and BrowserStack.</li>
+              <li>Authored detailed test cases and test plans aligned with business requirements; tracked full defect lifecycle in collaboration with developers.</li>
+            </ul>
+          </div>
+          <div class="timeline-project">
+            <h4>Direct Credit — Loan Processing Platform</h4>
+            <ul>
+              <li>Promoted to QA Lead and Business Analyst; drove end-to-end feature and exploratory testing across web, Android, and iOS.</li>
+              <li>Authored comprehensive product specifications for lead management, document upload flows, and acquisition journeys — signed off at CEO and CTO level.</li>
+              <li>Redesigned a 15-section mobile fintech app in Figma; built a ClickUp-integrated QA reporting system generating automated weekly and monthly PDF/Excel reports.</li>
+            </ul>
+          </div>
+          <div class="timeline-project">
+            <h4>ZingParks (ZTech) — Theme Park Management</h4>
+            <ul>
+              <li>Served as sole QA, Business Analyst, and Project Lead across 4 concurrent product lines (CRM, B2C, Ticketing, Parking).</li>
+              <li>Built the ZTech CRM end-to-end as sole developer using Node.js, Express.js, and PostgreSQL.</li>
+              <li>Designed and maintained scalable Selenium + Appium automated test suites integrated with Jenkins and GitHub Actions CI/CD pipelines.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">
+          <span class="timeline-company">Select Source International</span>
+          <span class="timeline-period">Mar 2022 – Sep 2025</span>
+        </div>
+        <div class="timeline-role">Software Testing Engineer</div>
+        <div class="timeline-projects">
+          <div class="timeline-project">
+            <h4>JOBMA — Video Interviewing Platform</h4>
+            <ul>
+              <li>Led functional, integration, regression, and API testing across web and mobile (Android &amp; iOS) using Postman; coordinated UAT with business analysts.</li>
+              <li>Implemented Selenium and Appium automation using POM; conducted security testing with OWASP ZAP and performance testing with JMeter.</li>
+              <li>Delivered team training on best practices; maintained full testware including test cases, test plans, and status reports.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">
+          <span class="timeline-company">Earlier Career</span>
+          <span class="timeline-period">2017 – 2022</span>
+        </div>
+        <div class="timeline-role">Tech Mahindra · Teleperformance · JustDial — Customer Operations &amp; Support</div>
+        <div class="timeline-projects">
+          <div class="timeline-project">
+            <h4>Customer Operations</h4>
+            <ul>
+              <li>5 years across customer-facing and operations roles in BPO and tech-support environments — developed communication, stakeholder management, and problem-solving skills that underpin QA and BA work today.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">// projects</p>
+    <h2 class="section-title reveal">Products I've<br>shipped quality for</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-domain">Fintech · Loan Processing</div>
+        <h3>Direct Credit</h3>
+        <p>A loan mediation platform for YSS Direct Credit Pvt. Ltd., a DSA partnered with IDFC First Bank. Covers lead management, document uploads, CIBIL flows, and online acquisition journeys. QA Lead and BA — delivered specs signed off at CEO level.</p>
+        <div class="project-tech">
+          <span>Appium</span><span>BrowserStack</span><span>Postman</span><span>Figma</span><span>ClickUp</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link unavailable">🔒 Internal / Not public</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-domain">Fintech · CRM</div>
+        <h3>Ruloans</h3>
+        <p>Multi-channel fintech platform with CRM, B2B, and B2C applications across web and mobile. Delivered full regression and functional coverage on Android and iOS using Appium and BrowserStack.</p>
+        <div class="project-tech">
+          <span>Appium</span><span>Selenium</span><span>BrowserStack</span><span>Jira</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link unavailable">🔒 Internal / Not public</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-domain">Entertainment · Theme Parks</div>
+        <h3>ZingParks (ZTech)</h3>
+        <p>Four concurrent product lines — CRM, B2C app, Ticketing, and Parking — for activity and entertainment parks. Sole QA, BA, and Project Lead. Also built the full-stack CRM using Node.js, Express.js, and PostgreSQL independently.</p>
+        <div class="project-tech">
+          <span>Selenium</span><span>Appium</span><span>Jenkins</span><span>GitHub Actions</span><span>Node.js</span><span>PostgreSQL</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link unavailable">🔒 Not yet public</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-domain">SaaS · HR Tech</div>
+        <h3>JOBMA</h3>
+        <p>Video interviewing SaaS platform tested across web, Android, and iOS. Led functional, integration, regression, API, security, and performance testing — with automation via Selenium + Appium POM and OWASP ZAP security scans.</p>
+        <div class="project-tech">
+          <span>Selenium</span><span>Appium</span><span>JMeter</span><span>OWASP ZAP</span><span>Postman</span>
+        </div>
+        <div class="project-links">
+          <a href="https://jobma.com" target="_blank" rel="noopener" class="project-link">🌐 jobma.com</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Focus ── -->
+<section id="focus">
+  <div class="container">
+    <p class="section-label reveal">// current focus</p>
+    <h2 class="section-title reveal">What I'm working<br>on right now</h2>
+    <div class="focus-grid">
+      <div class="focus-item reveal">
+        <div class="focus-icon">🤖</div>
+        <div>
+          <h4>AI-Augmented QA</h4>
+          <p>Embedding Claude and GitHub Copilot deeper into test design, script generation, and exploratory coverage workflows.</p>
+        </div>
+      </div>
+      <div class="focus-item reveal">
+        <div class="focus-icon">🎭</div>
+        <div>
+          <h4>Playwright Adoption</h4>
+          <p>Migrating and expanding automation coverage with Playwright for faster, more reliable cross-browser testing.</p>
+        </div>
+      </div>
+      <div class="focus-item reveal">
+        <div class="focus-icon">📦</div>
+        <div>
+          <h4>Shipping ZingParks</h4>
+          <p>Driving quality across 4 concurrent product lines from CRM to B2C ticketing — on-site client collaboration included.</p>
+        </div>
+      </div>
+      <div class="focus-item reveal">
+        <div class="focus-icon">📐</div>
+        <div>
+          <h4>Product Specification</h4>
+          <p>Deepening BA skills — writing tighter, more testable specs that reduce ambiguity at the source.</p>
+        </div>
+      </div>
+      <div class="focus-item reveal">
+        <div class="focus-icon">🔐</div>
+        <div>
+          <h4>Security Testing</h4>
+          <p>Expanding OWASP ZAP expertise and integrating security scans earlier in the CI/CD pipeline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="contact-copy">
+        <p class="section-label">// contact</p>
+        <h2>Let's build something<br>worth shipping.</h2>
+        <p style="margin-top:20px;">Whether you need a QA lead, an automation engineer, a business analyst, or all three — I'm open to hearing what you're working on.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:sydatifali@gmail.com" class="contact-link">
+          <div class="contact-link-icon">📧</div>
+          <div class="contact-link-info">
+            <span class="contact-link-label">EMAIL</span>
+            <span class="contact-link-value">sydatifali@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/sydatifali" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-info">
+            <span class="contact-link-label">LINKEDIN</span>
+            <span class="contact-link-value">linkedin.com/in/sydatifali</span>
+          </div>
+        </a>
+        <a href="https://github.com/sydatifali" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">💻</div>
+          <div class="contact-link-info">
+            <span class="contact-link-label">GITHUB</span>
+            <span class="contact-link-value">github.com/sydatifali</span>
+          </div>
+        </a>
+        <a href="tel:+919540100550" class="contact-link">
+          <div class="contact-link-icon">📱</div>
+          <div class="contact-link-info">
+            <span class="contact-link-label">PHONE</span>
+            <span class="contact-link-value">+91 95401 00550</span>
+          </div>
+        </a>
+        <a href="https://wa.me/919540100550" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">💬</div>
+          <div class="contact-link-info">
+            <span class="contact-link-label">WHATSAPP</span>
+            <span class="contact-link-value">+91 95401 00550</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <p>Built with precision by <span>Atif Ali</span> · New Delhi, India · <span>© 2025</span></p>
+  </div>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+  // Typing animation
+  const roles = [
+    'SDET II',
+    'Senior QA Engineer',
+    'Business Analyst',
+    'Automation Architect',
+    'Test Lead',
+  ];
+  let ri = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typing-text');
+  function type() {
+    const word = roles[ri];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 55 : 90);
+  }
+  type();
+
+  // Hamburger
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('nav-links');
+  ham.addEventListener('click', () => nav.classList.toggle('open'));
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
